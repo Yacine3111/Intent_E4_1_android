@@ -1,6 +1,7 @@
 package com.example.e4_1_android;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             try{
                 startActivity(photoIntent);
             }catch (ActivityNotFoundException e){
-                errorMessage();
+                errorMessage(this);
             }
             return true;
         }
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void errorMessage(){
-        Toast.makeText(this,"impossible",Toast.LENGTH_SHORT).show();
+    public static void errorMessage(Context context){
+        Toast.makeText(context,"impossible",Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,8 +1,13 @@
 package com.example.e4_1_android;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -13,7 +18,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.Manifest;
+
 
 public class PhotoActivity extends AppCompatActivity {
     Button button;
@@ -30,19 +35,27 @@ public class PhotoActivity extends AppCompatActivity {
         });
 
         button=findViewById(R.id.btnPhoto);
+        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        ImageView imageView=findViewById(R.id.image_photo);
 
-        ActivityResultLauncher<String> requestPermissionLauncher =
-                registerForActivityResult(new ActivityResultContracts.RequestPermission(),isGranted->{
-                    if(isGranted){
-                        System.out.println("oui");
-                    }else{
-                        System.out.println("non");
-                    }
-                });
+        ActivityResultLauncher<Intent> myActivityResultLauncher=
+                registerForActivityResult(
+                        new ActivityResultContracts.StartActivityForResult(),activityResult->{
+                            Intent resutIntent= activityResult.getData();
+                            if(activityResult.getResultCode()==RESULT_OK){
+                                assert resutIntent != null;
+                                Bitmap thumbnail=resutIntent.getParcelableExtra("data");
+                                imageView.setImageBitmap(thumbnail);
+                            }
+                        });
 
         button.setOnClickListener(v->{
-            if(checkPermission(Manifest.permission.CAMERA)){
-                requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+            if(checkPermission(android.Manifest.permission.CAMERA)){
+                try{
+                    myActivityResultLauncher.launch(intent);
+                }catch (ActivityNotFoundException e){
+                    System.out.println("non");
+                }
             }
         });
     }
@@ -50,13 +63,10 @@ public class PhotoActivity extends AppCompatActivity {
 
     private boolean checkPermission(String permission){
         if(ContextCompat.checkSelfPermission(this,permission)== PackageManager.PERMISSION_GRANTED){
-            System.out.println("oui");
             return true;
         }else if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-            System.out.println("stp");
             return false;
         } else {
-            System.out.println("non");
             return false;
         }
     }

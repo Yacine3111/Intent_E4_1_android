@@ -8,10 +8,12 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.Manifest;
 
 public class PhotoActivity extends AppCompatActivity {
     Button button;
@@ -39,9 +41,9 @@ public class PhotoActivity extends AppCompatActivity {
                 });
 
         button.setOnClickListener(v->{
-//            if(checkPermission(Manifest.permission.CAMERA)){
-//
-//            }
+            if(checkPermission(Manifest.permission.CAMERA)){
+                requestPermissionLauncher.launch(Manifest.permission.CAMERA);
+            }
         });
     }
 
@@ -50,7 +52,10 @@ public class PhotoActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(this,permission)== PackageManager.PERMISSION_GRANTED){
             System.out.println("oui");
             return true;
-        }else {
+        }else if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            System.out.println("stp");
+            return false;
+        } else {
             System.out.println("non");
             return false;
         }

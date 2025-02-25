@@ -29,12 +29,30 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light"
             />
+
         <activity
             android:name=".EmailActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light"
             />
+
+        <activity
+            android:name=".ReceiveMailActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.SENDTO" />
+                <action android:name="android.intent.action.SEND" />
+                <data android:scheme="mailto" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

@@ -27,7 +27,13 @@
             android:name=".PhotoActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.E4_1_android"
+            android:theme="@style/Theme.AppCompat.Light"
+            />
+        <activity
+            android:name=".EmailActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light"
             />
     </application>
 

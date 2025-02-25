@@ -18,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     View photoView;
-    Intent photoIntent;
+    Intent photoIntent,emailIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
        photoIntent= new Intent(getApplicationContext(),PhotoActivity.class);
+       emailIntent=new Intent(getApplicationContext(),EmailActivity.class);
 
     }
 
@@ -52,8 +53,14 @@ public class MainActivity extends AppCompatActivity {
                 errorMessage(this);
             }
             return true;
-        }
-        else{
+        } else if (itemId==R.id.email_item) {
+            try{
+                startActivity(emailIntent);
+            }catch (ActivityNotFoundException e){
+                errorMessage(this);
+            }
+            return true;
+        } else{
             return super.onOptionsItemSelected(item);
         }
     }

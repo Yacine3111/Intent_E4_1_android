@@ -3,4 +3,6 @@
     <string name="contentDesc_IamgeView_photo_activity">image_photo</string>
     <string name="Btn_text_photo_activity">appuie</string>
     <string name="photo_item_title">Photo</string>
+    <string name="email_title_item">Email</string>
+    <string name="infromation">Envoyer un courriel</string>
 </resources>

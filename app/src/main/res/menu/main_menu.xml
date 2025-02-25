@@ -4,4 +4,8 @@
         android:id="@+id/photo_item"
         android:title="@string/photo_item_title">
     </item>
+    <item
+        android:id="@+id/email_item"
+        android:title="@string/email_title_item">
+    </item>
 </menu>
